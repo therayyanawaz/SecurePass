@@ -1,142 +1,137 @@
-# SecurePass 🔐  
-**A zero-backend, privacy-first password generator you can host anywhere.**
+# SecurePass
+
+Privacy-first password generator and local vault built with Next.js.
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=flat-square)](https://pass.therayyanawaz.co.in/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](./LICENSE)
 
----
+SecurePass runs entirely in the browser. You can generate passwords, save them locally, organize them with categories, export backups, and install the app as a PWA with offline support for cached pages and assets.
 
-## ✨ What it does
-- **Generate** cryptographically-secure passwords in the browser  
-- **Fully client-side** – nothing ever leaves your device  
-- **Responsive** – works on desktop, tablet, and phone  
-- **Cookie vault** – stores generated passwords locally (optional, encrypted)  
-- **Light / dark mode** – auto-detects your OS preference  
+## Features
 
----
+- In-browser password generator with configurable length and character rules
+- Local password vault stored in browser `localStorage`
+- Category management, filtering, bulk actions, and analytics dashboard
+- Import and export support for `JSON`, `CSV`, and `TXT`
+- Light and dark theme support with system preference detection
+- Installable PWA with manifest, service worker, and offline fallback
+- Zero-backend architecture with no account required
 
-## 🚀 Quick Start (local)
-1. **Clone**
-   ```bash
-   git clone https://github.com/therayyanawaz/SecurePass.git
-   cd SecurePass
-   ```
+## Privacy and Storage
 
-2. **Install Dependencies**
-   ```bash
-   pnpm install
-   # or npm install
-   ```
+- Passwords stay in the current browser unless you export them yourself.
+- Saved data is browser-specific and device-specific.
+- Clearing browser site data will remove stored passwords and categories.
+- Existing cookie-based vault data is migrated automatically to `localStorage`.
+- No remote database or server-side account storage is used by default.
 
-3. **Development**
-   ```bash
-   pnpm dev
-   # or npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000).
+## PWA Support
 
-4. **Build & Deploy**
-   ```bash
-   pnpm build
-   # Deploy to Vercel, Netlify, or any static host
-   ```
+SecurePass now includes Progressive Web App support:
 
----
+- Web app manifest at `/manifest.webmanifest`
+- Service worker at `/sw.js`
+- Install icons for Android and Apple devices
+- Offline fallback page for failed navigations
+- Cached support for the app shell, icons, and previously visited pages/assets
 
-## 🛠 Tech Stack
+Note: the service worker is only registered in production builds.
 
-### **Framework & Runtime**
-- **Next.js 15.2.4** (React 19) - App Router with Server Components
-- **TypeScript 5** - Type-safe development
-- **Node.js** - Development environment
+## Quick Start
 
-### **UI & Styling**
-- **Tailwind CSS 4.1** - Utility-first CSS framework
-- **Radix UI** - Headless, accessible component primitives
-- **Lucide React** - Beautiful & consistent icon library
-- **next-themes** - Dark/Light mode with system detection
-- **Geist Font** - Modern typography by Vercel
+### Requirements
 
-### **3D Graphics & Animation**
-- **Three.js** - 3D graphics library
-- **@react-three/fiber** - React renderer for Three.js
-- **@react-three/drei** - Useful helpers for R3F
-- **tailwindcss-animate** - CSS animations
+- Node.js 18.18+ recommended
+- `pnpm` via Corepack, or `npm`
 
-### **Form & Data Management**
-- **React Hook Form** - Performant forms with validation
-- **Zod** - TypeScript-first schema validation
-- **date-fns** - Modern date utility library
+### Install
 
-### **State & Storage**
-- **Browser LocalStorage** - Client-side password vault
-- **Web Crypto API** - Cryptographically secure random generation
-- **React State** - Component state management
+```bash
+git clone https://github.com/therayyanawaz/SecurePass.git
+cd SecurePass
+corepack pnpm install
+```
 
-### **Development Tools**
-- **PostCSS & Autoprefixer** - CSS processing
-- **ESLint** - Code linting
-- **Class Variance Authority** - Component variant management
-- **clsx & tailwind-merge** - Conditional className utilities
+If you prefer `npm`:
 
----
+```bash
+npm install
+```
 
-## 🧪 Security & Privacy Highlights
-- **Web Crypto API** - Uses `crypto.getRandomValues()` for cryptographically secure entropy
-- **Client-side only** - Zero backend, nothing leaves your device
-- **Local storage** - Passwords stored in browser LocalStorage (encrypted)
-- **No tracking** - No analytics, cookies, or third-party trackers
-- **Open source** - Full source code available for security audit
-- **Type-safe** - TypeScript ensures runtime safety
+### Development
 
----
+```bash
+corepack pnpm dev
+```
 
-## 🧰 Browser Support
-| Chrome | Firefox | Safari | Edge |
-|--------|---------|--------|------|
-| 88+    | 90+     | 14+    | 88+  |
-*Requires modern ES2022+ support and Web Crypto API*
+Open [http://localhost:3000](http://localhost:3000).
 
----
+### Production Build
 
-## 🤝 Contributing
-1. Fork & create feature branch  
-2. Install dependencies: `pnpm install`
-3. Run development server: `pnpm dev`
-4. Follow TypeScript/ESLint rules: `pnpm lint`
-5. Test on multiple browsers & devices
-6. Open PR with screenshots for UI changes
+```bash
+corepack pnpm build
+corepack pnpm start
+```
 
----
+Use a production run when testing installability, service workers, and offline behavior.
 
-## 📋 Roadmap
-- [x] **3D Password Visualization** - Interactive Three.js password strength indicator
-- [x] **Advanced Dashboard** - Password management with categories & analytics
-- [x] **Dark/Light Theme** - System-aware theme switching
-- [x] **Export/Import** - JSON, CSV, TXT backup formats
-- [ ] **PWA Support** - Offline capability with service worker
-- [ ] **Password Health** - Breach detection & security recommendations
-- [ ] **Biometric Auth** - WebAuthn for secure vault access
-- [ ] **Browser Extension** - Auto-fill integration
+## Available Scripts
 
----
+```bash
+corepack pnpm dev
+corepack pnpm build
+corepack pnpm start
+corepack pnpm lint
+```
 
-## 📄 License
-MIT © 2025 [Md Rayyan Nawaz](https://github.com/therayyanawaz) – see [LICENSE](./LICENSE).
+Equivalent `npm run <script>` commands also work.
 
----
+## Tech Stack
 
-## 🏗️ Architecture
-This is a **JAMstack application** built with:
-- **Static generation** at build time
-- **Client-side interactivity** with React
-- **Edge deployment** compatible (Vercel, Netlify, Cloudflare)
-- **Zero runtime dependencies** - pure client-side execution
+- Next.js 15
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- Radix UI
+- Lucide React
+- next-themes
+- Three.js with `@react-three/fiber`
+- Browser `localStorage`
 
-## 👨‍💻 Authors & Contributors
+## Deployment
 
-- **[@therayyanawaz](https://www.github.com/therayyanawaz)** - Creator & Lead Developer
+SecurePass can be deployed to any platform that supports Next.js production builds, including:
 
----
+- Vercel
+- Netlify
+- Cloudflare
+- Self-hosted Node environments
 
-*Built with ❤️ using modern web technologies. No servers needed, privacy guaranteed.*
+After deployment, verify the following in production:
+
+- `/manifest.webmanifest` loads correctly
+- `/sw.js` is served with no-cache headers
+- the app can be installed
+- cached routes still open when offline
+
+## Roadmap
+
+- [x] 3D password visualization
+- [x] Password dashboard with categories and analytics
+- [x] Import and export tools
+- [x] PWA support with offline fallback
+- [ ] Password health checks and breach detection
+- [ ] Biometric vault access with WebAuthn
+- [ ] Browser extension support
+
+## Contributing
+
+1. Fork the repository.
+2. Install dependencies with `corepack pnpm install`.
+3. Run the dev server with `corepack pnpm dev`.
+4. Build before submitting changes with `corepack pnpm build`.
+5. Open a pull request with a clear summary of the change.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).
