@@ -107,6 +107,29 @@ SecurePass can be deployed to any platform that supports Next.js production buil
 - Cloudflare
 - Self-hosted Node environments
 
+### Vercel
+
+This repository is configured for Vercel out of the box:
+
+- Framework preset: `Next.js`
+- Install command: `pnpm install --frozen-lockfile`
+- Build command: `pnpm build`
+- Node.js runtime: `>=18.18.0`
+
+To deploy:
+
+1. Import the repository into Vercel.
+2. Keep the detected framework as `Next.js`.
+3. Use the default root directory.
+4. Deploy.
+
+If you prefer the CLI:
+
+```bash
+pnpm dlx vercel
+pnpm dlx vercel --prod
+```
+
 After deployment, verify the following in production:
 
 - `/manifest.webmanifest` loads correctly
