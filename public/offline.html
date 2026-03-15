@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SecurePass Offline</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f6fbf8;
+        --fg: #0f172a;
+        --muted: #4b5563;
+        --card: rgba(255, 255, 255, 0.92);
+        --border: rgba(5, 150, 105, 0.18);
+        --accent: #059669;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #06110d;
+          --fg: #f8fafc;
+          --muted: #cbd5e1;
+          --card: rgba(15, 23, 42, 0.82);
+          --border: rgba(16, 185, 129, 0.24);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(16, 185, 129, 0.16), transparent 34%),
+          linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 82%, white));
+        color: var(--fg);
+        padding: 24px;
+      }
+
+      .card {
+        width: min(100%, 720px);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.14);
+        backdrop-filter: blur(12px);
+        padding: 32px;
+      }
+
+      .icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(5, 150, 105, 0.12);
+        color: var(--accent);
+        font-size: 36px;
+        margin: 0 auto 24px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 5vw, 3rem);
+        text-align: center;
+      }
+
+      p {
+        margin: 0;
+        text-align: center;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        margin: 32px 0;
+      }
+
+      @media (min-width: 720px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.24);
+      }
+
+      .panel strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        padding: 14px 20px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 150ms ease, opacity 150ms ease, border-color 150ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: var(--accent);
+        color: white;
+      }
+
+      .button-secondary {
+        border-color: var(--border);
+        color: var(--fg);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="icon">📡</div>
+      <h1>You&rsquo;re offline</h1>
+      <p>
+        SecurePass can still show cached screens and assets. Reconnect to refresh your data or install the app for a
+        smoother offline experience.
+      </p>
+
+      <section class="grid">
+        <article class="panel">
+          <strong>Cached content only</strong>
+          <span>Previously visited pages and downloaded assets stay available until the cache is refreshed.</span>
+        </article>
+        <article class="panel">
+          <strong>Retry when ready</strong>
+          <span>As soon as your connection returns, reload SecurePass to sync the latest version of the app.</span>
+        </article>
+      </section>
+
+      <div class="actions">
+        <a class="button button-primary" href="/">Return Home</a>
+        <a class="button button-secondary" href="/offline">Open Offline Guide</a>
+      </div>
+    </main>
+  </body>
+</html>

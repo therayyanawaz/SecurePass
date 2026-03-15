@@ -364,7 +364,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
 
   const openAddCategory = () => {
     setEditingCategory(null)
-    setNewCategory({ name: "", color: "#10b981", icon: "📁" })
+    setNewCategory({ name: "", color: "#10b981", icon: DEFAULT_CATEGORY_ICON })
     setShowCategoryDialog(true)
   }
 
