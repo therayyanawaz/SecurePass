@@ -1,8 +1,7 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useState, useEffect } from "react"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment, Float, Center } from "@react-three/drei"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -23,56 +22,31 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Copy, RefreshCw, Shield, Lock, Eye, EyeOff, Save, Database, LayoutDashboard, Tag } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { savePassword, getPasswordStats, getCategories, type Category } from "@/lib/password-storage"
-import { PasswordDashboard } from "@/components/password-dashboard"
+import { getPasswordStorageSnapshot, savePassword, type Category } from "@/lib/password-storage"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-// 3D Password Strength Indicator Component
-function PasswordStrengthSphere({ strength }: { strength: number }) {
-  const getColor = (strength: number) => {
-    if (strength < 30) return "#ef4444" // red
-    if (strength < 60) return "#f59e0b" // amber
-    if (strength < 80) return "#10b981" // emerald
-    return "#059669" // dark emerald
-  }
+const PasswordDashboard = dynamic(
+  () => import("@/components/password-dashboard").then((mod) => mod.PasswordDashboard),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="min-h-screen bg-background px-4 py-8">
+        <div className="mx-auto max-w-3xl">
+          <Card className="border-2 shadow-xl">
+            <CardHeader>
+              <CardTitle>Loading dashboard</CardTitle>
+              <CardDescription>Preparing your saved passwords and analytics.</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </div>
+    ),
+  },
+)
 
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh>
-        <sphereGeometry args={[0.8, 32, 32]} />
-        <meshStandardMaterial
-          color={getColor(strength)}
-          metalness={0.7}
-          roughness={0.2}
-          emissive={getColor(strength)}
-          emissiveIntensity={0.1}
-        />
-      </mesh>
-    </Float>
-  )
-}
-
-// 3D Floating Lock Component
-function FloatingLock() {
-  return (
-    <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.3}>
-      <Center>
-        {/* Simple 3D Lock using basic geometry instead of Text3D */}
-        <group>
-          <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.8, 0.6, 0.2]} />
-            <meshStandardMaterial color="#059669" metalness={0.8} roughness={0.2} />
-          </mesh>
-          {/* Lock shackle */}
-          <mesh position={[0, 0.4, 0]}>
-            <torusGeometry args={[0.2, 0.05, 8, 16, Math.PI]} />
-            <meshStandardMaterial color="#059669" metalness={0.8} roughness={0.2} />
-          </mesh>
-        </group>
-      </Center>
-    </Float>
-  )
-}
+const PasswordScene = dynamic(() => import("@/components/password-scene").then((mod) => mod.PasswordScene), {
+  ssr: false,
+})
 
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("")
@@ -87,6 +61,7 @@ export default function PasswordGenerator() {
   const [passwordLabel, setPasswordLabel] = useState("")
   const [passwordCategory, setPasswordCategory] = useState<string>("")
   const [categories, setCategories] = useState<Category[]>([])
+  const [showScene, setShowScene] = useState(false)
   const [showSaveDialog, setShowSaveDialog] = useState(false)
   const [showDashboard, setShowDashboard] = useState(false)
   const [passwordStats, setPasswordStats] = useState({
@@ -159,8 +134,9 @@ export default function PasswordGenerator() {
   }
 
   const loadData = () => {
-    setPasswordStats(getPasswordStats())
-    setCategories(getCategories())
+    const snapshot = getPasswordStorageSnapshot()
+    setPasswordStats(snapshot.passwordStats)
+    setCategories(snapshot.categories)
   }
 
   const handleSavePassword = () => {
@@ -220,6 +196,19 @@ export default function PasswordGenerator() {
     loadData()
   }, [])
 
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (window.matchMedia("(max-width: 1023px), (prefers-reduced-motion: reduce)").matches) return
+
+    const timeoutId = window.setTimeout(() => {
+      setShowScene(true)
+    }, 250)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+  }, [])
+
   if (showDashboard) {
     return <PasswordDashboard onClose={() => setShowDashboard(false)} />
   }
@@ -227,24 +216,7 @@ export default function PasswordGenerator() {
   return (
     <div className="min-h-screen bg-background">
       {/* 3D Background Scene */}
-      <div className="fixed inset-0 w-full h-full">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1} />
-          <Environment preset="studio" />
-
-          {/* 3D Elements */}
-          <group position={[-3, 1, 0]}>
-            <FloatingLock />
-          </group>
-
-          <group position={[3, -1, 0]}>
-            <PasswordStrengthSphere strength={strength} />
-          </group>
-
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-        </Canvas>
-      </div>
+      {showScene ? <PasswordScene strength={strength} /> : null}
 
       {/* Theme Toggle */}
       <div className="fixed top-4 right-4 z-20">
@@ -452,10 +424,10 @@ export default function PasswordGenerator() {
                 </div>
 
                 <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
-                  <h4 className="font-semibold text-primary mb-2">Cookie Storage</h4>
+                  <h4 className="font-semibold text-primary mb-2">Local Storage</h4>
                   <p className="text-sm text-muted-foreground">
-                    Your generated passwords are stored locally in browser cookies. No account required - access your
-                    passwords anytime as long as cookies remain intact.
+                    Your generated passwords stay in your browser's local storage. No account required, and existing
+                    cookie-based data is migrated automatically.
                   </p>
                 </div>
               </CardContent>

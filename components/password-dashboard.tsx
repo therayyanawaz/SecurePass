@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useMemo } from "react"
+import { useDeferredValue, useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -53,21 +53,20 @@ import {
 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import {
-  getStoredPasswords,
   deletePassword,
-  getPasswordStats,
   clearAllPasswords,
   exportPasswords,
   downloadFile,
   importPasswords,
   generateBackupFilename,
   updatePassword,
-  getCategories,
   addCategory,
   updateCategory,
   deleteCategory,
-  getCategoryStats,
   bulkUpdatePasswordCategory,
+  DEFAULT_CATEGORY_COLOR,
+  DEFAULT_CATEGORY_ICON,
+  getPasswordStorageSnapshot,
   type StoredPassword,
   type ExportOptions,
   type ImportResult,
@@ -126,6 +125,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
   const [categories, setCategories] = useState<Category[]>([])
   const [categoryStats, setCategoryStats] = useState<CategoryStats>({})
   const [searchTerm, setSearchTerm] = useState("")
+  const deferredSearchTerm = useDeferredValue(searchTerm)
   const [selectedPasswords, setSelectedPasswords] = useState<string[]>([])
   const [showPasswords, setShowPasswords] = useState<Record<string, boolean>>({})
   const [sortBy, setSortBy] = useState<"date" | "strength" | "label">("date")
@@ -152,6 +152,9 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
     strong: 0,
   })
   const { toast } = useToast()
+  const normalizedSearchTerm = deferredSearchTerm.trim().toLowerCase()
+  const selectedPasswordSet = useMemo(() => new Set(selectedPasswords), [selectedPasswords])
+  const categoryMap = useMemo(() => new Map(categories.map((category) => [category.name, category])), [categories])
 
   const handleGeneratePassword = () => {
     onClose() // Return to main password generator
@@ -162,17 +165,17 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
   }
 
   const loadData = () => {
-    const storedPasswords = getStoredPasswords()
-    const storedCategories = getCategories()
-    setPasswords(storedPasswords)
-    setCategories(storedCategories)
-    setStats(getPasswordStats())
-    setCategoryStats(getCategoryStats())
+    const snapshot = getPasswordStorageSnapshot()
+    setPasswords(snapshot.passwords)
+    setCategories(snapshot.categories)
+    setStats(snapshot.passwordStats)
+    setCategoryStats(snapshot.categoryStats)
   }
 
   const filteredAndSortedPasswords = useMemo(() => {
     const filtered = passwords.filter((password) => {
-      const matchesSearch = password.label.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesSearch =
+        normalizedSearchTerm.length === 0 || password.label.toLowerCase().includes(normalizedSearchTerm)
       const matchesStrength =
         strengthFilter === "all" ||
         (strengthFilter === "weak" && password.strength < 30) ||
@@ -205,7 +208,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
     })
 
     return filtered
-  }, [passwords, searchTerm, sortBy, sortOrder, strengthFilter, categoryFilter])
+  }, [passwords, normalizedSearchTerm, sortBy, sortOrder, strengthFilter, categoryFilter])
 
   const handleCopyPassword = async (password: string, label: string) => {
     try {
@@ -517,9 +520,8 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
   }
 
   const getCategoryColor = (categoryName?: string) => {
-    if (!categoryName) return "#6b7280"
-    const category = categories.find((cat) => cat.name === categoryName)
-    return category?.color || "#6b7280"
+    if (!categoryName) return DEFAULT_CATEGORY_COLOR
+    return categoryMap.get(categoryName)?.color || DEFAULT_CATEGORY_COLOR
   }
 
   const getCategoryIcon = (categoryName?: string) => {
@@ -1031,7 +1033,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
                 {filteredAndSortedPasswords.map((password) => (
                   <div key={password.id} className="flex items-center gap-4 p-4 border rounded-lg">
                     <Checkbox
-                      checked={selectedPasswords.includes(password.id)}
+                      checked={selectedPasswordSet.has(password.id)}
                       onCheckedChange={() => toggleSelectPassword(password.id)}
                     />
                     <div className="flex-1 min-w-0">
