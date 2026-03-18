@@ -1,22 +1,23 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist } from "next/font/google"
+import { Cormorant_Garamond } from "next/font/google"
 import { Manrope } from "next/font/google"
 import { PWARegister } from "@/components/pwa-register"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
-const geist = Geist({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-geist",
-})
-
 const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-manrope",
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cormorant",
+  weight: ["500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${manrope.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${manrope.variable} ${cormorant.variable} antialiased`} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="class"

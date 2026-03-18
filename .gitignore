@@ -25,3 +25,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local agent / AI tooling
+.agents/
+.impeccable.md
+skills-lock.json

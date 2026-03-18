@@ -308,7 +308,7 @@ export default function PasswordGenerator() {
 
           <div className="flex items-center gap-3">
             <Button asChild variant="outline" className="rounded-full border-primary/15 bg-background/80 px-5">
-              <Link href="/about">About</Link>
+              <Link href="/about">About SecurePass</Link>
             </Button>
             <ThemeToggle />
           </div>
@@ -318,13 +318,15 @@ export default function PasswordGenerator() {
           <section className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl space-y-3">
               <Badge variant="outline" className="rounded-full border-primary/15 bg-primary/8 px-4 py-1.5 text-primary">
-                Password Generator
+                Generator Workspace
               </Badge>
-              <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                Generate, copy, and save passwords without the extra noise.
+              <h1 className="font-serif text-[clamp(3.2rem,8vw,5.8rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-balance">
+                Strong passwords,
+                <br />
+                instantly usable.
               </h1>
               <p className="text-base leading-7 text-muted-foreground sm:text-lg">
-                Tune the recipe, get a strong result instantly, and open the dashboard only when you need to manage saved entries.
+                Set the rules, generate a result, copy it fast, and save it only when you want it in your local vault.
               </p>
             </div>
 
@@ -339,7 +341,7 @@ export default function PasswordGenerator() {
               <CardHeader className="space-y-3 border-b border-border/60 pb-6">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                   <div className="space-y-2">
-                    <CardTitle className="flex items-center gap-3 text-2xl tracking-tight">
+                    <CardTitle className="flex items-center gap-3 font-serif text-[1.9rem] tracking-[-0.03em]">
                       <Lock className="h-5 w-5 text-primary" />
                       Generator Workspace
                     </CardTitle>
@@ -522,7 +524,7 @@ export default function PasswordGenerator() {
             <div className="space-y-4">
               <Card className="rounded-[30px] border-primary/15 bg-card/80 shadow-[0_28px_84px_-56px_rgba(15,23,42,0.3)] backdrop-blur-2xl">
                 <CardHeader className="space-y-2">
-                  <CardTitle className="text-xl tracking-tight">Vault Access</CardTitle>
+                  <CardTitle className="font-serif text-[1.7rem] tracking-[-0.03em]">Vault Access</CardTitle>
                   <CardDescription>Open the dashboard when you want to manage saved entries and categories.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -546,7 +548,7 @@ export default function PasswordGenerator() {
 
               <Card className="rounded-[30px] border-primary/15 bg-card/80 shadow-[0_28px_84px_-56px_rgba(15,23,42,0.3)] backdrop-blur-2xl">
                 <CardHeader className="space-y-2">
-                  <CardTitle className="text-xl tracking-tight">Need details?</CardTitle>
+                  <CardTitle className="font-serif text-[1.7rem] tracking-[-0.03em]">Need details?</CardTitle>
                   <CardDescription>Privacy, offline support, and the broader product information live on the About page.</CardDescription>
                 </CardHeader>
                 <CardContent>
