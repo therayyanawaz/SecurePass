@@ -34,6 +34,8 @@ const SECURITY_NOTES = [
   "Back up exported vault data somewhere you control.",
 ]
 
+const COPYRIGHT_LABEL = `© ${new Date().getFullYear()} therayyanawaz`
+
 export default function AboutPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background px-4 py-6 sm:px-6 lg:px-8">
@@ -136,6 +138,12 @@ export default function AboutPage() {
             </CardContent>
           </Card>
         </section>
+
+        <footer className="border-t border-border/60 pt-4">
+          <p className="text-center text-sm tracking-[0.14em] text-muted-foreground/90 sm:text-right">
+            {COPYRIGHT_LABEL}
+          </p>
+        </footer>
       </div>
     </main>
   )
