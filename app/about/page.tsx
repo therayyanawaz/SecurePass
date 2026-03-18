@@ -52,7 +52,7 @@ export default function AboutPage() {
               About SecurePass
             </Badge>
             <h1 className="max-w-4xl font-serif text-[clamp(3rem,7vw,5.4rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-balance">
-              Private password generation, designed to feel calm and flagship.
+              Private password generation, designed to stay simple, fast, and local.
             </h1>
             <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
               SecurePass helps you create strong passwords, save them locally on your device, and reopen your workspace even when you are offline.
