@@ -50,6 +50,8 @@ const PasswordScene = dynamic(() => import("@/components/password-scene").then((
   ssr: false,
 })
 
+const COPYRIGHT_LABEL = `© ${new Date().getFullYear()} therayyanawaz`
+
 type ToggleTileProps = {
   id: string
   label: string
@@ -560,6 +562,12 @@ export default function PasswordGenerator() {
             </div>
           </section>
         </main>
+
+        <footer className="mt-8 border-t border-border/60 pt-4">
+          <p className="text-center text-sm tracking-[0.14em] text-muted-foreground/90 sm:text-right">
+            {COPYRIGHT_LABEL}
+          </p>
+        </footer>
       </div>
     </div>
   )
