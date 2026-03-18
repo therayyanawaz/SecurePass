@@ -49,7 +49,9 @@ export default function AboutPage() {
             <Badge variant="outline" className="rounded-full border-primary/15 bg-primary/8 px-4 py-1.5 text-primary">
               About SecurePass
             </Badge>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Private password generation, built for daily use.</h1>
+            <h1 className="max-w-4xl font-serif text-[clamp(3rem,7vw,5.4rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-balance">
+              Private password generation, designed to feel calm and flagship.
+            </h1>
             <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
               SecurePass helps you create strong passwords, save them locally on your device, and reopen your workspace even when you are offline.
             </p>
@@ -88,7 +90,7 @@ export default function AboutPage() {
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <CardTitle className="text-xl tracking-tight">{title}</CardTitle>
+                  <CardTitle className="font-serif text-[1.8rem] tracking-[-0.03em]">{title}</CardTitle>
                   <CardDescription className="max-w-[15rem] text-sm leading-7">{description}</CardDescription>
                 </CardHeader>
               </Card>
@@ -99,7 +101,7 @@ export default function AboutPage() {
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <Card className="rounded-[32px] border-primary/15 bg-background/80 shadow-[0_32px_100px_-60px_rgba(15,23,42,0.32)] backdrop-blur-2xl">
             <CardHeader className="space-y-3">
-              <CardTitle className="text-2xl tracking-tight">How SecurePass works</CardTitle>
+              <CardTitle className="font-serif text-[2.15rem] tracking-[-0.03em]">How SecurePass works</CardTitle>
               <CardDescription className="text-base leading-7">
                 Generate a password, copy or save it, and open the dashboard whenever you want to manage saved entries.
               </CardDescription>
@@ -119,7 +121,7 @@ export default function AboutPage() {
 
           <Card className="rounded-[32px] border-primary/15 bg-card/80 shadow-[0_32px_100px_-60px_rgba(15,23,42,0.32)] backdrop-blur-2xl">
             <CardHeader className="space-y-3">
-              <CardTitle className="text-2xl tracking-tight">Security basics</CardTitle>
+              <CardTitle className="font-serif text-[2.15rem] tracking-[-0.03em]">Security basics</CardTitle>
               <CardDescription className="text-base leading-7">
                 A few habits still make the difference.
               </CardDescription>
