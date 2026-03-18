@@ -487,16 +487,17 @@ export default function PasswordGenerator() {
                   <CardDescription>Open the dashboard when you want to manage saved entries and categories.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-[20px] border border-primary/10 bg-background/75 p-4">
-                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Saved</div>
-                      <div className="mt-2 text-3xl font-semibold">{passwordStats.total}</div>
-                    </div>
-                    <div className="rounded-[20px] border border-primary/10 bg-background/75 p-4">
-                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Strong</div>
-                      <div className="mt-2 text-3xl font-semibold">{passwordStats.strong}</div>
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="rounded-full border-primary/15 bg-background/80 px-3 py-1 text-primary">
+                      {categories.length} Categories
+                    </Badge>
+                    <Badge variant="outline" className="rounded-full border-primary/15 bg-background/80 px-3 py-1 text-muted-foreground">
+                      Local Vault
+                    </Badge>
                   </div>
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    Use the dashboard for labels, categories, imports, exports, and saved-password management.
+                  </p>
                   <Button variant="outline" onClick={() => setShowDashboard(true)} className="h-12 w-full rounded-[20px] border-primary/15 bg-background/80">
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     Open Dashboard
