@@ -746,7 +746,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <>
               {/* Stats Cards */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <Card>
+            <Card className="hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <Shield className="h-4 w-4 text-muted-foreground" />
@@ -755,7 +755,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
                 <p className="text-2xl font-bold">{stats.total}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:-translate-y-1 hover:border-red-300/60 hover:shadow-lg hover:shadow-red-500/10">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 text-red-500" />
@@ -764,7 +764,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
                 <p className="text-2xl font-bold text-red-600">{stats.weak}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:-translate-y-1 hover:border-amber-300/60 hover:shadow-lg hover:shadow-amber-500/10">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-4 rounded-full bg-amber-500" />
@@ -773,7 +773,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
                 <p className="text-2xl font-bold text-amber-600">{stats.fair}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:-translate-y-1 hover:border-emerald-300/60 hover:shadow-lg hover:shadow-emerald-500/10">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-4 rounded-full bg-emerald-500" />
@@ -782,7 +782,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
                 <p className="text-2xl font-bold text-emerald-600">{stats.good}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-lg hover:shadow-emerald-600/10">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600" />
@@ -802,7 +802,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Object.entries(categoryStats).map(([categoryName, stats]) => (
-                  <div key={categoryName} className="p-4 border rounded-lg">
+                  <div key={categoryName} className="rounded-lg border p-4 transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-1 hover:border-primary/25 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">
                         {getCategoryIcon(categoryName === "Uncategorized" ? undefined : categoryName)}
@@ -843,7 +843,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <CardContent>
               <div className="space-y-3">
                 {passwords.slice(0, 5).map((password) => (
-                  <div key={password.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div key={password.id} className="flex items-center justify-between rounded-lg border p-3 transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-primary/5 hover:shadow-md">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm">{getCategoryIcon(password.category)}</span>
@@ -1031,7 +1031,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <CardContent>
               <div className="space-y-3">
                 {filteredAndSortedPasswords.map((password) => (
-                  <div key={password.id} className="flex items-center gap-4 p-4 border rounded-lg">
+                  <div key={password.id} className="flex items-center gap-4 rounded-lg border p-4 transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10">
                     <Checkbox
                       checked={selectedPasswordSet.has(password.id)}
                       onCheckedChange={() => toggleSelectPassword(password.id)}
@@ -1307,7 +1307,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.map((category) => (
-                  <Card key={category.id} className="p-6">
+                  <Card key={category.id} className="p-6 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${category.color}20`, border: `1px solid ${category.color}` }}>
@@ -1507,7 +1507,7 @@ export function PasswordDashboard({ onClose }: PasswordDashboardProps) {
             <CardContent>
               <div className="space-y-4">
                 {Object.entries(categoryStats).map(([categoryName, stats]) => (
-                  <div key={categoryName} className="p-4 border rounded-lg">
+                  <div key={categoryName} className="rounded-lg border p-4 transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <span className="text-lg">

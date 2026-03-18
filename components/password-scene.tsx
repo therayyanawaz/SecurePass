@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import type { Group, Mesh } from "three"
+import { cn } from "@/lib/utils"
 
 function getStrengthColor(strength: number) {
   if (strength < 30) return "#ef4444"
@@ -61,9 +62,9 @@ function FloatingLock() {
   )
 }
 
-export function PasswordScene({ strength }: { strength: number }) {
+export function PasswordScene({ strength, className }: { strength: number; className?: string }) {
   return (
-    <div aria-hidden="true" className="fixed inset-0 h-full w-full">
+    <div aria-hidden="true" className={cn("fixed inset-0 h-full w-full", className)}>
       <Canvas
         camera={{ position: [0, 0, 5.5], fov: 70 }}
         dpr={[1, 1.5]}
@@ -73,11 +74,11 @@ export function PasswordScene({ strength }: { strength: number }) {
         <directionalLight position={[6, 6, 6]} intensity={1.15} />
         <directionalLight position={[-4, -2, 3]} intensity={0.45} />
 
-        <group position={[-3, 1, 0]}>
+        <group position={[1.2, -1.7, 0]}>
           <FloatingLock />
         </group>
 
-        <group position={[3, -1, 0]}>
+        <group position={[4, 0.15, 0]}>
           <PasswordStrengthSphere strength={strength} />
         </group>
       </Canvas>
