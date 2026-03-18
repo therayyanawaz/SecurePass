@@ -379,47 +379,86 @@ export default function PasswordGenerator() {
                             <Save className="h-4 w-4" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Save Password</DialogTitle>
-                            <DialogDescription>
-                              Give your password a label and category so it is easy to identify later.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="space-y-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="label">Password Label</Label>
-                              <Input id="label" placeholder="e.g., Gmail Account, Work WiFi..." value={passwordLabel} onChange={(event) => setPasswordLabel(event.target.value)} />
+                        <DialogContent className="max-w-xl rounded-[32px] border-primary/15 bg-background/92 p-0 shadow-[0_40px_120px_-40px_rgba(15,23,42,0.45)] backdrop-blur-2xl">
+                          <div className="space-y-6 p-6 sm:p-7">
+                            <DialogHeader className="space-y-3 text-left">
+                              <Badge
+                                variant="outline"
+                                className="w-fit rounded-full border-primary/15 bg-primary/8 px-3 py-1 text-primary"
+                              >
+                                Save to Vault
+                              </Badge>
+                              <div className="space-y-2">
+                                <DialogTitle className="text-2xl tracking-tight">Save Password</DialogTitle>
+                                <DialogDescription className="max-w-md text-sm leading-7">
+                                  Add a label, choose a category if needed, and keep this password ready in your local vault.
+                                </DialogDescription>
+                              </div>
+                            </DialogHeader>
+
+                            <div className="space-y-4">
+                              <div className="rounded-[24px] border border-primary/10 bg-background/75 p-4">
+                                <div className="space-y-2">
+                                  <Label htmlFor="label" className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                    Password Label
+                                  </Label>
+                                  <Input
+                                    id="label"
+                                    placeholder="e.g., Gmail Account, Work WiFi..."
+                                    value={passwordLabel}
+                                    onChange={(event) => setPasswordLabel(event.target.value)}
+                                    className="h-12 rounded-2xl border-primary/10 bg-background/85"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="rounded-[24px] border border-primary/10 bg-background/75 p-4">
+                                <div className="space-y-2">
+                                  <Label htmlFor="category" className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                    Category
+                                  </Label>
+                                  <Select value={passwordCategory} onValueChange={setPasswordCategory}>
+                                    <SelectTrigger className="h-12 rounded-2xl border-primary/10 bg-background/85">
+                                      <Tag className="mr-2 h-4 w-4" />
+                                      <SelectValue placeholder="Select a category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {categories.map((category) => (
+                                        <SelectItem key={category.id} value={category.name}>
+                                          <div className="flex items-center gap-2">
+                                            <span>{category.icon}</span>
+                                            {category.name}
+                                          </div>
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                              </div>
+
+                              <div className="rounded-[24px] border border-primary/10 bg-primary/6 p-4">
+                                <div className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                  Password Preview
+                                </div>
+                                <div className="rounded-[18px] border border-primary/10 bg-background/85 p-4">
+                                  <p className="break-all font-mono text-sm sm:text-base">{password}</p>
+                                </div>
+                              </div>
                             </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="category">Category (Optional)</Label>
-                              <Select value={passwordCategory} onValueChange={setPasswordCategory}>
-                                <SelectTrigger>
-                                  <Tag className="mr-2 h-4 w-4" />
-                                  <SelectValue placeholder="Select a category" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {categories.map((category) => (
-                                    <SelectItem key={category.id} value={category.name}>
-                                      <div className="flex items-center gap-2">
-                                        <span>{category.icon}</span>
-                                        {category.name}
-                                      </div>
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-                            <div className="rounded-lg bg-muted p-3">
-                              <p className="break-all font-mono text-sm">{password}</p>
-                            </div>
+
+                            <DialogFooter className="border-t border-border/60 pt-1 sm:pt-3">
+                              <Button
+                                variant="outline"
+                                onClick={() => setShowSaveDialog(false)}
+                                className="h-12 rounded-[18px] border-primary/15 bg-background/80 px-6"
+                              >
+                                Cancel
+                              </Button>
+                              <Button onClick={handleSavePassword} className="h-12 rounded-[18px] px-6">
+                                Save Password
+                              </Button>
+                            </DialogFooter>
                           </div>
-                          <DialogFooter>
-                            <Button variant="outline" onClick={() => setShowSaveDialog(false)}>
-                              Cancel
-                            </Button>
-                            <Button onClick={handleSavePassword}>Save Password</Button>
-                          </DialogFooter>
                         </DialogContent>
                       </Dialog>
                     </div>
