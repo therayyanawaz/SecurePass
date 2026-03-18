@@ -8,22 +8,22 @@ const FEATURE_BLOCKS = [
   {
     icon: Shield,
     title: "Local-first security",
-    description: "Passwords are generated in the browser and stored locally on the current device by default.",
+    description: "Passwords are generated in your browser and stay on your device unless you choose to export them.",
   },
   {
     icon: Database,
     title: "Organized vault",
-    description: "Saved passwords can be labeled, grouped into categories, and managed from the dashboard.",
+    description: "Save entries with labels and categories so they stay easy to find and manage.",
   },
   {
     icon: Wifi,
     title: "Offline support",
-    description: "The PWA caches core assets and provides an offline fallback after the app has been opened once.",
+    description: "Install SecurePass and reopen the app after the first visit, even when your connection drops.",
   },
   {
     icon: LayoutDashboard,
     title: "Focused workflow",
-    description: "Generate first, manage later. The homepage stays lightweight while the dashboard handles the rest.",
+    description: "Generate passwords quickly, then use the dashboard when you need to organize saved entries.",
   },
 ]
 
@@ -49,9 +49,9 @@ export default function AboutPage() {
             <Badge variant="outline" className="rounded-full border-primary/15 bg-primary/8 px-4 py-1.5 text-primary">
               About SecurePass
             </Badge>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Everything that does not need to live on the homepage.</h1>
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Private password generation, built for daily use.</h1>
             <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
-              SecurePass is built so the landing screen stays focused on generating passwords, while the supporting product information sits here.
+              SecurePass helps you create strong passwords, save them locally on your device, and reopen your workspace even when you are offline.
             </p>
           </div>
 
@@ -80,20 +80,20 @@ export default function AboutPage() {
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <Card className="rounded-[32px] border-primary/15 bg-background/80 shadow-[0_32px_100px_-60px_rgba(15,23,42,0.32)] backdrop-blur-2xl">
             <CardHeader className="space-y-3">
-              <CardTitle className="text-2xl tracking-tight">How the app is structured</CardTitle>
+              <CardTitle className="text-2xl tracking-tight">How SecurePass works</CardTitle>
               <CardDescription className="text-base leading-7">
-                The generator is the primary task surface. The dashboard is where you manage saved data, and the PWA layer keeps the app available after the first load.
+                Generate a password, copy or save it, and open the dashboard whenever you want to manage saved entries.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 text-sm leading-7 text-muted-foreground">
               <p>
-                The homepage now prioritizes generating, copying, and saving passwords quickly. It does not try to explain every product detail before the user can act.
+                SecurePass is designed to reduce friction. Open the app, set your password rules, generate a result, and save only what you want to keep.
               </p>
               <p>
-                Passwords and categories are stored locally in the browser. If a user wants to understand privacy, offline behavior, or the broader product workflow, this page is the place for that context.
+                Your vault lives in local browser storage on the current device. That keeps the workflow private and avoids account setup or a remote backend.
               </p>
               <p>
-                Dashboard access stays one click away for users who need categories, analytics, import/export, or vault cleanup.
+                The dashboard adds search, categories, and import or export tools for users who want a more organized vault over time.
               </p>
             </CardContent>
           </Card>
@@ -102,7 +102,7 @@ export default function AboutPage() {
             <CardHeader className="space-y-3">
               <CardTitle className="text-2xl tracking-tight">Security basics</CardTitle>
               <CardDescription className="text-base leading-7">
-                Short reminders that still matter when generating credentials.
+                A few habits still make the difference.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
