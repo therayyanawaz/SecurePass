@@ -64,17 +64,36 @@ export default function AboutPage() {
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {FEATURE_BLOCKS.map(({ icon: Icon, title, description }) => (
-            <Card key={title} className="rounded-[30px] border-primary/15 bg-background/80 shadow-[0_28px_84px_-56px_rgba(15,23,42,0.3)] backdrop-blur-2xl">
-              <CardHeader className="space-y-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <CardTitle className="text-xl tracking-tight">{title}</CardTitle>
-                <CardDescription className="text-sm leading-7">{description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+          {FEATURE_BLOCKS.map(({ icon: Icon, title, description }, index) => {
+            const hasBackgroundAccent = index === 2
+
+            return (
+              <Card
+                key={title}
+                className={`relative overflow-hidden rounded-[30px] border-primary/15 bg-background/80 shadow-[0_28px_84px_-56px_rgba(15,23,42,0.3)] backdrop-blur-2xl ${
+                  hasBackgroundAccent ? "border-primary/20 bg-[linear-gradient(180deg,rgba(16,185,129,0.08),rgba(2,6,23,0.02))]" : ""
+                }`}
+              >
+                {hasBackgroundAccent ? (
+                  <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute right-[-2.75rem] top-[-2.75rem] h-36 w-36 rounded-full border border-primary/15" />
+                    <div className="absolute right-2 top-2 h-24 w-24 rounded-full border border-primary/20" />
+                    <div className="absolute right-10 top-10 h-8 w-8 rounded-full bg-primary/18 blur-sm" />
+                    <div className="absolute bottom-0 right-0 h-28 w-32 bg-[radial-gradient(rgba(16,185,129,0.16)_1px,transparent_1px)] [background-size:14px_14px] opacity-70" />
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent,rgba(16,185,129,0.08))]" />
+                  </div>
+                ) : null}
+
+                <CardHeader className="relative space-y-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <CardTitle className="text-xl tracking-tight">{title}</CardTitle>
+                  <CardDescription className="max-w-[15rem] text-sm leading-7">{description}</CardDescription>
+                </CardHeader>
+              </Card>
+            )
+          })}
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
